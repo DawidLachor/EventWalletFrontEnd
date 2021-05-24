@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Login} from "../login/login";
 import {Observable} from "rxjs";
 import {Token} from "../token";
+import {RegisterRequest} from "./registerRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RegisterService {
 
   constructor(private http: HttpClient) {}
 
-  public login(login: Login): Observable<Token>{
-    return this.http.post<Token>('http://localhost:8080/api/registration', login);
+  public registerService(register: RegisterRequest): Observable<void>{
+    return this.http.post<void>('http://localhost:8080/api/registration', register);
   }
 }
