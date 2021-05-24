@@ -1,0 +1,13 @@
+<form #addForm="ngForm" (ngSubmit)="register(addForm)">
+  <div>
+    <label for="username">Username</label>
+    <input type="text" ngModel name="username"  id="username" placeholder="Username" required>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" ngModel name="password"  id="password" placeholder="Password" required>
+  </div>
+  <div class="modal-footer">
+    <button [disabled]="addForm.invalid" type="submit" >Save changes</button>
+  </div>
+</form>
