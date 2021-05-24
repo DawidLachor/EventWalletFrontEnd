@@ -8,12 +8,14 @@ import {LoginService} from "./login/login.service";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {AppRoutingModule} from "./app-routing.module";
+import { WalletComponent } from './wallet/wallet.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    WalletComponent
   ],
   imports: [
     AppRoutingModule,

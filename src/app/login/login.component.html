@@ -1,15 +1,23 @@
-<form #addForm="ngForm" (ngSubmit)="login(addForm)">
-  <div>
-    <label for="username">Username</label>
-    <input type="text" ngModel name="username"  id="username" placeholder="Username" required>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" ngModel name="password"  id="password" placeholder="Password" required>
-  </div>
-  <div class="modal-footer">
-    <button [disabled]="addForm.invalid" type="submit" >Save changes</button>
-  </div>
-</form>
+<div class="text-center">
+  <main class="form-signin">
+    <form #addForm="ngForm" (ngSubmit)="login(addForm)">
+      <h1 class="h3 mb-3 fw-normal">Zaloguj się</h1>
+      <div class="form-floating">
+        <input type="text" ngModel name="username" class="form-control" id="username" placeholder="Username" required>
+        <label for="username">Username</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password"
+               required>
+        <label for="password">Password</label>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="addForm.invalid" class="w-100 btn btn-lg btn-primary" type="submit">Zaloguj</button>
+      </div>
+    </form>
 
-<a routerLink="/register" routerLinkActive="active">Register</a>
+  <div class="modal-body">
+    <a routerLink="/register" class="w-100 btn btn-lg btn-primary" routerLinkActive="active">Rejestracja</a>
+  </div>
+  </main>
+</div>
