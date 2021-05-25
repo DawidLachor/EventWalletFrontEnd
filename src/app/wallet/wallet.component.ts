@@ -10,8 +10,14 @@ import {WalletService} from "./wallet.service";
 })
 export class WalletComponent implements OnInit {
   wallets: Wallet[]
+  walletEdit: Wallet
   constructor(private walletService: WalletService) {
     this.wallets = []
+    this.walletEdit = {
+      id: 0,
+      name: '',
+      description: ''
+    }
   }
 
   ngOnInit(): void {
@@ -30,4 +36,21 @@ export class WalletComponent implements OnInit {
     )
   }
 
+  onUpdateWallet(walletEdit: Wallet) {
+    this.walletService.update(walletEdit).subscribe(
+      value => this.findAll(),
+      error => console.error(error)
+    )
+  }
+
+  onCreateWallet(walletEdit: Wallet) {
+    this.walletService.create(walletEdit).subscribe(
+      value => this.findAll(),
+      error => console.error(error)
+    )
+  }
+
+  onOpenModal(wallet: Wallet) {
+    this.walletEdit = wallet;
+  }
 }
