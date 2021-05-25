@@ -1,6 +1,7 @@
 <main class="container" id="main-container">
   <div class="my-3 p-3 bg-body rounded shadow-sm">
-    <button class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createWallet">Dodaj koszty</button>
+    <button (click)="findPeople()" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createModal">Dodaj koszty</button>
+    <button class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createPerson">Dodaj osobę</button>
     <h6 class="border-bottom pb-2 mb-0">Portfel</h6>
     <div *ngFor="let cost of costs">
       <div class="d-flex flex-column text-muted pt-3 container">
@@ -10,9 +11,9 @@
             <strong class="d-block text-gray-dark">{{cost.name}}</strong>
             {{cost.description}}
           </p>
-<!--        <button (click)="onOpenModal(wallet)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--          Edytuj-->
-<!--        </button>-->
+        <button (click)="onOpenModal(cost)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Edytuj
+        </button>
           </div>
           <div class="col-4">
             <strong class="d-block text-gray-dark">Koszt</strong>
@@ -24,3 +25,108 @@
     </div>
   </div>
 </main>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edytuj</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" ngModel="{{cost?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+          </div>
+          <input type="hidden" ngModel="{{cost?.id}}" name="id" class="form-control" id="id" placeholder="Email">
+          <div class="form-group">
+            <label for="description">Opis</label>
+            <input type="text" ngModel="{{cost?.description}}" name="description" class="form-control" id="description" placeholder="Opis">
+          </div>
+          <div class="form-group">
+            <label for="description">Koszt</label>
+            <input type="number" ngModel="{{cost?.cost}}" name="cost" class="form-control" id="cost" placeholder="Koszt">
+          </div>
+          <div class="form-group">
+            <label for="description">Osoba</label>
+            <select (ngModelChange)="setUser($event)" [ngModel]="people" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let user of people" [ngValue]="user">
+                {{user.name}}
+              </option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button (click)="onUpdateCost(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Utwórz</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #createForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" ngModel="{{cost?.name}}" name="name" class="form-control"  aria-describedby="emailHelp" placeholder="Name">
+          </div>
+          <input type="hidden" ngModel="{{cost?.id}}" name="id" class="form-control"  placeholder="Email">
+          <div class="form-group">
+            <label for="description">Opis</label>
+            <input type="text" ngModel="{{cost?.description}}" name="description" class="form-control" placeholder="Opis">
+          </div>
+          <div class="form-group">
+            <label for="description">Koszt</label>
+            <input type="number" ngModel="{{cost?.cost}}" name="cost" class="form-control" placeholder="Koszt">
+          </div>
+          <div class="form-group">
+            <label for="description">Osoba</label>
+
+            <select (ngModelChange)="setUser($event)" [ngModel]="people" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let user of people" [ngValue]="user">
+                {{user.name}}
+              </option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button (click)="onCreateCost(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createPerson" tabindex="-1" aria-labelledby="createPerson" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createModalLabel">Utwórz</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #createPersonForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" ngModel name="name" class="form-control"  aria-describedby="emailHelp" placeholder="Name">
+          </div>
+          <input type="hidden" ngModel name="id" class="form-control"  placeholder="Email">
+          <div class="modal-footer">
+            <button (click)="onCreatePerson(createPersonForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

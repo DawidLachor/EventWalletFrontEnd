@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { WalletComponent } from './wallet/wallet.component';
 import { CostComponent } from './cost/cost.component';
+import { PersonComponent } from './person/person.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CostComponent } from './cost/cost.component';
     LoginComponent,
     RegisterComponent,
     WalletComponent,
-    CostComponent
+    CostComponent,
+    PersonComponent
   ],
   imports: [
     AppRoutingModule,
