@@ -1,0 +1,22 @@
+<main class="container" id="main-container">
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <a routerLink="/wallet/{{id}}" class="pb-6 mb-0">Portfel</a>
+    <h6 class="border-bottom pb-2 mb-0">Podsumowanie</h6>
+    <div *ngFor="let person of people">
+      <div class="d-flex flex-column text-muted pt-3 container">
+        <div class="row pb-3 mb-0 bd-highlight small lh-sm border-bottom">
+          <div class="col-8 ">
+            <p>
+              <strong class="d-block text-gray-dark">{{person.name}}</strong>
+            </p>
+          </div>
+          <div class="col-4">
+            <strong class="d-block text-gray-dark">Koszt</strong>
+<!--            <p >{{cost.cost}}</p>-->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

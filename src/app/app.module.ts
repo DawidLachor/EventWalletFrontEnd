@@ -11,6 +11,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import { WalletComponent } from './wallet/wallet.component';
 import { CostComponent } from './cost/cost.component';
 import { PersonComponent } from './person/person.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PersonComponent } from './person/person.component';
     RegisterComponent,
     WalletComponent,
     CostComponent,
-    PersonComponent
+    PersonComponent,
+    SummaryComponent
   ],
   imports: [
     AppRoutingModule,

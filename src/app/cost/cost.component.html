@@ -2,6 +2,7 @@
   <div class="my-3 p-3 bg-body rounded shadow-sm">
     <button (click)="findPeople()" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createModal">Dodaj koszty</button>
     <button class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createPerson">Dodaj osobę</button>
+    <a routerLink="../{{id}}/summary" class="pb-6 mb-0">Podsumowanie</a>
     <h6 class="border-bottom pb-2 mb-0">Portfel</h6>
     <div *ngFor="let cost of costs">
       <div class="d-flex flex-column text-muted pt-3 container">
