@@ -4,10 +4,12 @@
     <h6 class="border-bottom pb-2 mb-0">Portfele</h6>
     <div *ngFor="let wallet of wallets">
       <div class="d-flex flex-column text-muted pt-3">
+        <a class="" routerLink="/wallet/{{wallet.id}}]">
           <p class="pb-3 mb-0 bd-highlight small lh-sm border-bottom">
             <strong class="d-block text-gray-dark">{{wallet.name}}</strong>
             {{wallet.description}}
           </p>
+        </a>
         <button (click)="onOpenModal(wallet)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Edytuj
         </button>
@@ -15,9 +17,6 @@
     </div>
   </div>
 </main>
-
-
-<!-- Button trigger modal -->
 
 
 <!-- Modal -->
@@ -40,8 +39,8 @@
             <input type="text" ngModel="{{walletEdit?.description}}" name="description" class="form-control" id="description" placeholder="Opis">
           </div>
           <div class="modal-footer">
-            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-            <button (click)="onUpdateWallet(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button (click)="onUpdateWallet(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
           </div>
         </form>
       </div>
@@ -60,16 +59,16 @@
         <form #createForm="ngForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text"  name="name" class="form-control"  aria-describedby="emailHelp" placeholder="Name">
+            <input type="text"  name="name" ngModel class="form-control"  aria-describedby="emailHelp" placeholder="Name">
           </div>
-          <input type="hidden" name="id" class="form-control"  placeholder="Email">
+          <input type="hidden" name="id" ngModel class="form-control">
           <div class="form-group">
             <label for="description">Opis</label>
-            <input type="text"  name="description" class="form-control" placeholder="Opis">
+            <input type="text" ngModel  name="description" class="form-control" placeholder="Opis">
           </div>
           <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-            <button (click)="onCreateWallet(createForm.value)" data-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Anuluj</button>
+            <button (click)="onCreateWallet(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
           </div>
         </form>
       </div>

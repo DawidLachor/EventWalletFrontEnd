@@ -1,0 +1,26 @@
+<main class="container" id="main-container">
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <button class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createWallet">Dodaj koszty</button>
+    <h6 class="border-bottom pb-2 mb-0">Portfel</h6>
+    <div *ngFor="let cost of costs">
+      <div class="d-flex flex-column text-muted pt-3 container">
+        <div class="row pb-3 mb-0 bd-highlight small lh-sm border-bottom">
+          <div class="col-8 ">
+          <p>
+            <strong class="d-block text-gray-dark">{{cost.name}}</strong>
+            {{cost.description}}
+          </p>
+<!--        <button (click)="onOpenModal(wallet)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+<!--          Edytuj-->
+<!--        </button>-->
+          </div>
+          <div class="col-4">
+            <strong class="d-block text-gray-dark">Koszt</strong>
+            <p >{{cost.cost}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
