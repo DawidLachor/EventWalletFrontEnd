@@ -3,6 +3,8 @@ import {CostService} from "../cost/cost.service";
 import {ActivatedRoute} from "@angular/router";
 import {PersonService} from "../person/person.service";
 import {Person} from "../person/Person";
+import {SummaryService} from "./summary.service";
+import {Summary} from "./Summary";
 
 @Component({
   selector: 'app-summary',
@@ -11,10 +13,10 @@ import {Person} from "../person/Person";
 })
 export class SummaryComponent implements OnInit {
 
-  people: Person[] | undefined
+  summaries: Summary[] | undefined
   id: number
-  constructor(private costService: CostService, private route: ActivatedRoute,
-              private personService: PersonService){
+  constructor(private route: ActivatedRoute,
+              private summaryService: SummaryService){
     this.id = parseInt(this.route.snapshot.paramMap.get('id')!, 10)
   }
 
@@ -23,8 +25,8 @@ export class SummaryComponent implements OnInit {
   }
 
   findPeople(){
-    this.personService.findAll(this.id).subscribe(
-      value => this.people = value,
+    this.summaryService.getSummary(this.id).subscribe(
+      value => this.summaries = value,
       error => alert(error)
     )
   }

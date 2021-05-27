@@ -35,15 +35,21 @@ export class CostComponent implements OnInit {
 
   onOpenModal(cost: Cost) {
     this.cost = cost
-    this.findPeople()
+    this.findAllPeople()
   }
 
-  findPeople(){
+  findAllPeople(){
     this.personService.findAll(this.id).subscribe(
       value => this.people = value,
       error => alert(error)
     )
   }
+
+  // findPersonByCost(costId: number){
+  //   this.personService.findByIdCost(costId).subscribe(
+  //     value => this.
+  //   )
+  // }
 
   onUpdateCost(cost: Cost) {
     let idPerson = this.person?.id
