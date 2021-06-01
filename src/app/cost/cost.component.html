@@ -1,28 +1,29 @@
 <main class="container" id="main-container">
   <div class="my-3 p-3 bg-body rounded shadow-sm">
-    <button (click)="findAllPeople()" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createModal">Dodaj koszty</button>
+    <button (click)="findAllPeople()" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createModal">Dodaj
+      koszty
+    </button>
     <button class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createPerson">Dodaj osobę</button>
     <a routerLink="../{{id}}/summary" class="pb-6 mb-0">Podsumowanie</a>
     <h6 class="border-bottom pb-2 mb-0">Portfel</h6>
     <div *ngFor="let cost of costs">
-      <div class="d-flex flex-column text-muted pt-3 container">
-        <div class="row pb-3 mb-0 bd-highlight small lh-sm border-bottom">
-          <div class="col-8 ">
-          <p>
-            <strong class="d-block text-gray-dark">{{cost.name}}</strong>
-            {{cost.description}}
-          </p>
-        <button (click)="onOpenModal(cost)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Edytuj
-        </button>
-          </div>
-          <div class="col-4">
-            <strong class="d-block text-gray-dark">Koszt</strong>
-            <p >{{cost.cost}}</p>
-          </div>
+      <a (click)="onOpenModal(cost)" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div class="d-flex flex-column text-muted pt-3 container">
+          <div class="row pb-3 mb-0 bd-highlight small lh-sm border-bottom">
+            <div class="col-8 ">
+              <p>
+                <strong class="d-block text-gray-dark">{{cost.name}}</strong>
+                {{cost.description}}
+              </p>
+            </div>
+            <div class="col-4">
+              <strong class="d-block text-gray-dark">Koszt</strong>
+              <p>{{cost.cost}}</p>
+            </div>
 
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </main>
@@ -38,27 +39,36 @@
         <form #editForm="ngForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" ngModel="{{cost?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+            <input type="text" ngModel="{{cost?.name}}" name="name" class="form-control" id="name"
+                   aria-describedby="emailHelp" placeholder="Name">
           </div>
           <input type="hidden" ngModel="{{cost?.id}}" name="id" class="form-control" id="id" placeholder="Email">
           <div class="form-group">
             <label for="description">Opis</label>
-            <input type="text" ngModel="{{cost?.description}}" name="description" class="form-control" id="description" placeholder="Opis">
+            <input type="text" ngModel="{{cost?.description}}" name="description" class="form-control" id="description"
+                   placeholder="Opis">
           </div>
           <div class="form-group">
             <label for="description">Koszt</label>
-            <input type="number" ngModel="{{cost?.cost}}" name="cost" class="form-control" id="cost" placeholder="Koszt">
+            <input type="number" ngModel="{{cost?.cost}}" name="cost" class="form-control" id="cost"
+                   placeholder="Koszt">
           </div>
           <div class="form-group">
-            <label for="description">Osoba</label>
+            <label>Osoba</label>
+            <p>{{person?.name}}</p>
+          </div>
+          <div class="form-group">
+            <label>Zmień osobę</label>
             <select (ngModelChange)="setUser($event)" [ngModel]="people" [ngModelOptions]="{standalone: true}">
               <option *ngFor="let user of people" [ngValue]="user">
                 {{user.name}}
               </option>
             </select>
+
           </div>
           <div class="modal-footer">
-            <button (click)="onUpdateCost(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button (click)="onUpdateCost(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary">Zapisz
+            </button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
           </div>
         </form>
@@ -78,12 +88,14 @@
         <form #createForm="ngForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" ngModel="{{cost?.name}}" name="name" class="form-control"  aria-describedby="emailHelp" placeholder="Name">
+            <input type="text" ngModel="{{cost?.name}}" name="name" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Name">
           </div>
-          <input type="hidden" ngModel="{{cost?.id}}" name="id" class="form-control"  placeholder="Email">
+          <input type="hidden" ngModel="{{cost?.id}}" name="id" class="form-control" placeholder="Email">
           <div class="form-group">
             <label for="description">Opis</label>
-            <input type="text" ngModel="{{cost?.description}}" name="description" class="form-control" placeholder="Opis">
+            <input type="text" ngModel="{{cost?.description}}" name="description" class="form-control"
+                   placeholder="Opis">
           </div>
           <div class="form-group">
             <label for="description">Koszt</label>
@@ -92,13 +104,14 @@
           <div class="form-group">
             <label for="description">Osoba</label>
             <select (ngModelChange)="setUser($event)" [ngModel]="people" [ngModelOptions]="{standalone: true}">
-              <option *ngFor="let user of people" [ngValue]="user" >
+              <option *ngFor="let user of people" [ngValue]="user">
                 {{user.name}}
               </option>
             </select>
           </div>
           <div class="modal-footer">
-            <button (click)="onCreateCost(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button (click)="onCreateCost(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary">Zapisz
+            </button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
           </div>
         </form>
@@ -118,11 +131,13 @@
         <form #createPersonForm="ngForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" ngModel name="name" class="form-control"  aria-describedby="emailHelp" placeholder="Name">
+            <input type="text" ngModel name="name" class="form-control" aria-describedby="emailHelp" placeholder="Name">
           </div>
-          <input type="hidden" ngModel name="id" class="form-control"  placeholder="Email">
+          <input type="hidden" ngModel name="id" class="form-control" placeholder="Email">
           <div class="modal-footer">
-            <button (click)="onCreatePerson(createPersonForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+            <button (click)="onCreatePerson(createPersonForm.value)" data-bs-dismiss="modal" class="btn btn-primary">
+              Zapisz
+            </button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
           </div>
         </form>

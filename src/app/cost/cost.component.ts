@@ -14,6 +14,7 @@ export class CostComponent implements OnInit {
   costs: Cost[]
   cost: Cost | undefined
   people: Person[] | undefined
+  personSet: Person | undefined
   person: Person | undefined
   id: number
   constructor(private costService: CostService, private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class CostComponent implements OnInit {
   onOpenModal(cost: Cost) {
     this.cost = cost
     this.findAllPeople()
+    this.findPersonByCost(cost.id)
   }
 
   findAllPeople(){
@@ -45,14 +47,14 @@ export class CostComponent implements OnInit {
     )
   }
 
-  // findPersonByCost(costId: number){
-  //   this.personService.findByIdCost(costId).subscribe(
-  //     value => this.
-  //   )
-  // }
+  findPersonByCost(costId: number){
+    this.personService.findByIdCost(costId,this.id).subscribe(
+      value => this.person = value
+    )
+  }
 
   onUpdateCost(cost: Cost) {
-    let idPerson = this.person?.id
+    let idPerson = this.personSet?.id
     this.costService.update(cost, idPerson, this.id).subscribe(
       value => this.findAll(),
       error => alert(error)
@@ -61,11 +63,11 @@ export class CostComponent implements OnInit {
   }
 
   setUser(person: Person) {
-    this.person = person;
+    this.personSet = person;
   }
 
   onCreateCost(cost: Cost) {
-    let idPerson = this.person?.id
+    let idPerson = this.personSet?.id
     this.costService.create(cost, idPerson, this.id).subscribe(
       value => this.findAll(),
       error => alert(error)

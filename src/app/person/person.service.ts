@@ -19,4 +19,10 @@ export class PersonService {
   public create(person: Person, idWallet: number): Observable<Person>{
     return this.http.post<Person>('http://localhost:8080/api/'+idWallet+'/person', person);
   }
+
+  findByIdCost(costId: number, idWallet: number): Observable<Person>{
+    return this.http.get<Person>('http://localhost:8080/api/'+idWallet+'/costs/'+costId);
+  }
+
+
 }
