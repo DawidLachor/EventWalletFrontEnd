@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Events Wallet</a>
+    <a class="navbar-brand" (click)="navigation()">Events Wallet</a>
     <button *ngIf="service.jwt" class="navbar-toggler" (click)="logout()" type="button">Wyloguj</button>
   </div>
 </nav>

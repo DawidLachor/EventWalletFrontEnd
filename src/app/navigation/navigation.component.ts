@@ -20,4 +20,12 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['']);
     this.service.checkJWT()
   }
+
+  navigation() {
+    if (this.service.jwt){
+      this.router.navigate(['/wallet']);
+    } else {
+      this.router.navigate(['']);
+    }
+  }
 }
