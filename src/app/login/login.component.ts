@@ -4,6 +4,8 @@ import {NgForm} from "@angular/forms";
 import {Token} from "../token";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {NavigationComponent} from "../navigation/navigation.component";
+import {NavigationService} from "../navigation/navigation.service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ import {Router} from "@angular/router";
 
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService,  private router: Router) {
+  signin: boolean = false;
+  constructor(private loginService: LoginService,  private router: Router, private navigation: NavigationService) {
   }
 
   public login(loginForm: NgForm): void{
@@ -21,10 +24,11 @@ export class LoginComponent implements OnInit {
       (response: Token) => {
         localStorage.setItem('authenticationToken', response.authenticationToken)
         this.router.navigate(['/wallet']);
+        this.navigation.checkJWT();
         console.log(response);
       },
       (error : HttpErrorResponse) => {
-        alert(error.message);
+        this.signin = true;
       }
     )
   }

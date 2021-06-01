@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 })
 export class RegisterComponent implements OnInit {
 
+  signup: boolean = false;
   constructor(private registerService: RegisterService, private router: Router) {
   }
   ngOnInit(): void {
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
       value => {
         this.router.navigate([''])
       },error => {
-        console.error(error)
+        this.signup=true;
       }
     )
   }

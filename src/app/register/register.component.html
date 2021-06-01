@@ -22,6 +22,9 @@
         <input type="text" ngModel name="lastName" class="form-control" id="lastName" placeholder="lastName" required>
         <label for="lastName">Nazwisko</label>
       </div>
+      <div *ngIf="signup">
+        <p class="text-danger">Email jest niepoprawny lub nazwę użytkownika jest używana</p>
+      </div>
       <div class="modal-footer">
         <button [disabled]="addForm.invalid" class="w-100 btn btn-lg btn-primary" type="submit">Zarejestruj się</button>
       </div>

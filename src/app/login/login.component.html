@@ -11,11 +11,11 @@
                required>
         <label for="password">Password</label>
       </div>
+      <div *ngIf="signin"><p class="text-danger">Niepoprawne dane</p></div>
       <div class="modal-footer">
         <button [disabled]="addForm.invalid" class="w-100 btn btn-lg btn-primary" type="submit">Zaloguj</button>
       </div>
     </form>
-
   <div class="modal-body">
     <a routerLink="/register" class="w-100 btn btn-lg btn-primary" routerLinkActive="active">Rejestracja</a>
   </div>
