@@ -53,4 +53,10 @@ export class WalletComponent implements OnInit {
   onOpenModal(wallet: Wallet) {
     this.walletEdit = wallet;
   }
+
+  onDeleteWallet(walletEdit: Wallet) {
+    this.walletService.delete(walletEdit).subscribe(
+      value => this.findAll()
+    )
+  }
 }

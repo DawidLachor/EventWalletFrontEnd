@@ -39,6 +39,7 @@
             <input type="text" ngModel="{{walletEdit?.description}}" name="description" class="form-control" id="description" placeholder="Opis">
           </div>
           <div class="modal-footer">
+            <button (click)="onDeleteWallet(editForm.value)" data-bs-dismiss="modal" class="btn btn-dangerous">Usuń</button>
             <button (click)="onUpdateWallet(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
           </div>

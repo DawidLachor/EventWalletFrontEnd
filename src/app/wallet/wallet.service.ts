@@ -31,4 +31,11 @@ export class WalletService {
     headers = headers.append("Access-Control-Allow-Origin", "*")
     return this.http.post<void>('http://localhost:8080/api/wallet',wallet, {headers: headers});
   }
+
+  delete(wallet: Wallet):Observable<void> {
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer " + localStorage.getItem('authenticationToken'))
+    headers = headers.append("Access-Control-Allow-Origin", "*")
+    return this.http.delete<void>('http://localhost:8080/api/wallet/'+wallet.id, {headers: headers});
+  }
 }

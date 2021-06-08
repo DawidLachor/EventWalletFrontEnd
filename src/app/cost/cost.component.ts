@@ -80,4 +80,10 @@ export class CostComponent implements OnInit {
       error => alert(error)
     )
   }
+
+  onDeleteCost(cost: Cost) {
+    this.costService.delete(cost.id, this.id).subscribe(
+      value => this.findAll()
+    )
+  }
 }
