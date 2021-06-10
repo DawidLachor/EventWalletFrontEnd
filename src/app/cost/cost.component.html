@@ -3,7 +3,7 @@
     <button (click)="findAllPeople()" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createModal">Dodaj
       koszty
     </button>
-    <button class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createPerson">Dodaj osobę</button>
+    <button *ngIf="createPerson" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createPerson">Dodaj osobę</button>
     <a routerLink="../{{id}}/summary" class="pb-6 mb-0">Podsumowanie</a>
     <h6 class="border-bottom pb-2 mb-0">Portfel</h6>
     <div *ngFor="let cost of costs">
@@ -20,7 +20,6 @@
               <strong class="d-block text-gray-dark">Koszt</strong>
               <p>{{cost.cost}}</p>
             </div>
-
           </div>
         </div>
       </a>
@@ -66,6 +65,49 @@
             </select>
 
           </div>
+
+          <div class="row">
+            <div class="col-8">
+              <label class="btn btn-default p-0">
+                <input type="file" (change)="selectFile($event)" />
+              </label>
+            </div>
+
+            <div class="col-4">
+              <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload(cost!)">
+                Upload
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="currentFile" class="progress my-3">
+            <div
+              class="progress-bar progress-bar-info progress-bar-striped"
+              role="progressbar"
+              attr.aria-valuenow="{{ progress }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [ngStyle]="{ width: progress + '%' }">
+              {{ progress }}%
+            </div>
+          </div>
+
+          <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+
+          <div class="card mt-3">
+            <div class="card-header">List of Files</div>
+            <ul
+              class="list-group list-group-flush"
+              *ngFor="let file of fileInfos | async"
+            >
+              <li class="list-group-item">
+                <a href="{{ file.url }}">{{ file.name }}</a>
+                <img src="{{ file.url }}" alt="{{ file.name }}" height="80px">
+              </li>
+            </ul>
+          </div>
+
+          <div class="alert alert-light" role="alert">{{ message }}</div>
           <div class="modal-footer">
             <button (click)="onDeleteCost(editForm.value)" data-bs-dismiss="modal" class="btn btn-danger">Usuń</button>
             <button (click)="onUpdateCost(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary">Zapisz</button>
@@ -109,10 +151,26 @@
               </option>
             </select>
           </div>
-          <app-upload-files></app-upload-files>
+
+          <div *ngIf="currentFile" class="progress">
+            <div
+              class="progress-bar progress-bar-info progress-bar-striped"
+              role="progressbar"
+              attr.aria-valuenow="{{ progress }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [ngStyle]="{ width: progress + '%' }">
+              {{ progress }}%
+            </div>
+          </div>
+
+          <label class="btn btn-default">
+            <input type="file" (change)="selectFile($event)" />
+          </label>
+
+          <div class="alert alert-light" role="alert">{{ message }}</div>
           <div class="modal-footer">
-            <button (click)="onCreateCost(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary">Zapisz
-            </button>
+            <button (click)="onCreateCost(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary">Zapisz</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
           </div>
         </form>

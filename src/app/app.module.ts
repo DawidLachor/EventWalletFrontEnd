@@ -13,20 +13,17 @@ import { CostComponent } from './cost/cost.component';
 import { PersonComponent } from './person/person.component';
 import { SummaryComponent } from './summary/summary.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { UploadFilesComponent } from './upload-files/upload-files.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadFilesComponent,
     LoginComponent,
     RegisterComponent,
     WalletComponent,
     CostComponent,
     PersonComponent,
     SummaryComponent,
-    NavigationComponent,
-    UploadFilesComponent
+    NavigationComponent
   ],
   imports: [
     AppRoutingModule,

@@ -19,6 +19,10 @@ export class CostService {
     return this.http.put<void>('http://localhost:8080/api/'+ walletId+"/costs/"+personId, cost);
   }
 
+  public createWithPhoto(cost: Cost, personId: number | undefined, walletId: number): Observable<Cost>{
+    return this.http.post<Cost>('http://localhost:8080/api/'+ walletId+"/costs/"+personId, cost);
+  }
+
   public create(cost: Cost, personId: number | undefined, walletId: number): Observable<Cost>{
     return this.http.post<Cost>('http://localhost:8080/api/'+ walletId+"/costs/"+personId, cost);
   }
