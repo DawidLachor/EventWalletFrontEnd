@@ -22,7 +22,26 @@ export class UploadFileService {
     return this.http.request(req);
   }
 
+  create(file: File | undefined):Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    // @ts-ignore
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', this.baseUrl+'/files', formData);
+
+    return this.http.request(req);
+  }
+
   getFilesByCost(cost: number): Observable<any> {
     return this.http.get(this.baseUrl+"/"+cost+"/files");
+  }
+
+  getFilesById(idFile: string): Observable<any> {
+    return this.http.get(this.baseUrl+"/files/" + idFile);
+  }
+
+  connectFileWithCost(idFile: string, idCost: number): Observable<any> {
+    return this.http.get(this.baseUrl+"/"+idCost+"/files/" + idFile);
   }
 }

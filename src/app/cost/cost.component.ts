@@ -28,11 +28,10 @@ export class CostComponent implements OnInit {
   currentFile?: File;
   progress = 0;
   message = '';
+  idFile = '';
+  idCost = 0;
 
   fileInfos?: Observable<any>;
-
-  summaries: Summary[] | undefined;
-  createPerson = true;
   constructor(private costService: CostService, private route: ActivatedRoute,
               private personService: PersonService,private uploadService: UploadFileService, private summaryService: SummaryService) {
     this.costs = [];
@@ -41,26 +40,6 @@ export class CostComponent implements OnInit {
 
   ngOnInit(): void {
     this.findAll()
-    this.checkPerson();
-  }
-
-  checkPerson(){
-    this.findPeople()
-    // @ts-ignore
-    for (let i = 0; i < this.summaries?.length; i++) {
-      // @ts-ignore
-      if (this.summaries[i].cost){
-        this.createPerson = false;
-        break;
-      }
-    }
-  }
-
-  findPeople(){
-    this.summaryService.getSummary(this.id).subscribe(
-      value => this.summaries = value,
-      error => alert(error)
-    )
   }
 
 
@@ -100,8 +79,9 @@ export class CostComponent implements OnInit {
       value => this.findAll(),
       error => alert(error)
     )
-    this.upload(cost)
+    this.uploadFile(cost)
     this.personSet = undefined;
+    this.message = "";
   }
 
   setUser(person: Person) {
@@ -110,13 +90,23 @@ export class CostComponent implements OnInit {
 
   onCreateCost(cost: Cost) {
     let idPerson = this.personSet?.id
-    // @ts-ignore
-    this.currentFile = this.selectedFiles.item(0);
-    this.costService.createWithPhoto(cost, idPerson, this.id).subscribe(
-      value => this.findAll(),
+    this.costService.create(cost, idPerson, this.id).subscribe(
+      value => {
+        this.findAll();
+        this.idCost = value.id;
+        this.connectFileWithCost();
+      },
       error => alert(error)
     )
+
     this.personSet = undefined;
+    this.message = "";
+  }
+
+  connectFileWithCost(){
+    if(this.idFile != '')
+      this.uploadService.connectFileWithCost(this.idFile, this.idCost).subscribe()
+    this.idFile = '';
   }
 
   onCreatePerson(person: Person) {
@@ -156,7 +146,7 @@ export class CostComponent implements OnInit {
     }
   }
 
-  upload(cost: Cost): void {
+  uploadFile(cost: Cost): void {
     this.progress = 0;
 
     if (this.selectedFiles) {
@@ -172,6 +162,44 @@ export class CostComponent implements OnInit {
             } else if (event instanceof HttpResponse) {
               this.message = event.body.message;
               this.fileInfos = this.uploadService.getFilesByCost(cost.id);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+            this.progress = 0;
+
+            if (err.error && err.error.message) {
+              this.message = err.error.message;
+            } else {
+              this.message = 'Could not upload the file!';
+            }
+
+            this.currentFile = undefined;
+          });
+
+      }
+
+      this.selectedFiles = undefined;
+    }
+  }
+
+  createFile() {
+    this.progress = 0;
+
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+
+        this.uploadService.create(this.currentFile).subscribe(
+          (event: any) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              this.message = event.body.message;
+              this.idFile = event.body.idFile;
+              this.fileInfos = this.uploadService.getFilesById(this.idFile);
             }
           },
           (err: any) => {
