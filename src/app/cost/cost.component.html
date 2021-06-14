@@ -1,7 +1,7 @@
 <main class="container" id="main-container">
   <div class="my-3 p-3 bg-body rounded shadow-sm">
     <button (click)="findAllPeople()" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createModal">Dodaj koszty</button>
-    <button (click)="isCostZero()" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createPerson">Dodaj osobę</button>
+    <button (click)="isCostZero()" *ngIf="!isCost" class="pb-6 mb-0" data-bs-toggle="modal" data-bs-target="#createPerson">Dodaj osobę</button>
     <a routerLink="../{{id}}/summary" class="pb-6 mb-0">Podsumowanie</a>
     <h6 class="border-bottom pb-2 mb-0">Portfel</h6>
     <div *ngFor="let cost of costs">

@@ -42,18 +42,21 @@ export class CostComponent implements OnInit {
 
   ngOnInit(): void {
     this.findAll()
+    this.isCostZero()
   }
 
   //Sprawdzenie czy jest cos do oddania
   isCostZero() {
     this.summaryService.getSummary(this.id).subscribe(
       value => {
-        value.forEach(item => {
-            if (item.cost > 0) {
-              this.isCost = true;
-            }
+        for (let i = 0; i < value.length; i++) {
+          if (value[i].cost < 0){
+            this.isCost = true;
+            break;
+          } else {
+            this.isCost = false;
           }
-        )
+        }
       }
     )
   }
@@ -64,6 +67,7 @@ export class CostComponent implements OnInit {
       value => this.costs = value,
       error => alert(error)
     )
+    this.isCostZero()
   }
 
   //Otworzenie modelu do update kosztów
@@ -103,6 +107,7 @@ export class CostComponent implements OnInit {
     this.uploadFile(cost)
     this.personSet = undefined;
     this.message = "";
+    this.isCostZero()
   }
 
   //Ustawienie osoby do kosztów
@@ -123,7 +128,7 @@ export class CostComponent implements OnInit {
       },
       error => alert(error)
     )
-
+    this.isCostZero()
     this.personSet = undefined;
     this.message = "";
   }
