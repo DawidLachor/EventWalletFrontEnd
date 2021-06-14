@@ -15,12 +15,17 @@ export class NavigationComponent implements OnInit {
     this.service.checkJWT();
   }
 
+  //Wylogowanie
   logout() {
+    //Usunięcie tokena JWT z cooki
     localStorage.removeItem('authenticationToken');
+    //Przekierowanie do strony startowej
     this.router.navigate(['']);
+    //Sprawdzenia tokena
     this.service.checkJWT()
   }
 
+  //Przekierowanie
   navigation() {
     if (this.service.jwt){
       this.router.navigate(['/wallet']);

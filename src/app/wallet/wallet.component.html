@@ -18,8 +18,37 @@
   </div>
 </main>
 
+<!--*********************************** Tworzenie portfela ****************************************************-->
+<div class="modal fade" id="createWallet" tabindex="-1" aria-labelledby="createWallet" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Edytuj</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #createForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text"  name="name" ngModel class="form-control"  aria-describedby="emailHelp" placeholder="Name">
+          </div>
+          <input type="hidden" name="id" ngModel class="form-control">
+          <div class="form-group">
+            <label for="description">Opis</label>
+            <input type="text" ngModel  name="description" class="form-control" placeholder="Opis">
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Anuluj</button>
+            <button (click)="onCreateWallet(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Modal -->
+
+<!--************************** Modyfikacja portfela **************************************-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -42,34 +71,6 @@
             <button (click)="onDeleteWallet(editForm.value)" data-bs-dismiss="modal" class="btn btn-dangerous">Usuń</button>
             <button (click)="onUpdateWallet(editForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anuluj</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="createWallet" tabindex="-1" aria-labelledby="createWallet" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" >Edytuj</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form #createForm="ngForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text"  name="name" ngModel class="form-control"  aria-describedby="emailHelp" placeholder="Name">
-          </div>
-          <input type="hidden" name="id" ngModel class="form-control">
-          <div class="form-group">
-            <label for="description">Opis</label>
-            <input type="text" ngModel  name="description" class="form-control" placeholder="Opis">
-          </div>
-          <div class="modal-footer">
-            <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Anuluj</button>
-            <button (click)="onCreateWallet(createForm.value)" data-bs-dismiss="modal" class="btn btn-primary" >Zapisz</button>
           </div>
         </form>
       </div>

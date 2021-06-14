@@ -18,12 +18,15 @@ export class LoginComponent implements OnInit {
   signin: boolean = false;
   constructor(private loginService: LoginService,  private router: Router, private navigation: NavigationService) {
   }
-
+  //Logowanie się do serwera
   public login(loginForm: NgForm): void{
     this.loginService.login(loginForm.value).subscribe(
       (response: Token) => {
+        //Tworzenie w cooki tokena
         localStorage.setItem('authenticationToken', response.authenticationToken)
+        //routing do danej strony
         this.router.navigate(['/wallet']);
+        //Sprawdzenia tokena JWT
         this.navigation.checkJWT();
         console.log(response);
       },

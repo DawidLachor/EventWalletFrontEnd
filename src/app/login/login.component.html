@@ -11,6 +11,7 @@
                required>
         <label for="password">Password</label>
       </div>
+<!--      Wiadomość gdy logowanie jest nie udane-->
       <div *ngIf="signin"><p class="text-danger">Niepoprawne dane</p></div>
       <div class="modal-footer">
         <button [disabled]="addForm.invalid" class="w-100 btn btn-lg btn-primary" type="submit">Zaloguj</button>

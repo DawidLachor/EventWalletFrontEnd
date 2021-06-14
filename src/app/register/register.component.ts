@@ -18,9 +18,11 @@ export class RegisterComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  //Rejestracja konta
   public register(registerForm: NgForm): void {
     this.registerService.registerService(registerForm.value).subscribe(
       value => {
+        //Gdy rejestracja sie powiedzie to zostanie przekierowany do strony głównej
         this.router.navigate([''])
       },error => {
         this.signup=true;

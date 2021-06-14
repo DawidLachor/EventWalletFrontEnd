@@ -5,7 +5,7 @@ import {RegisterComponent} from "./register/register.component";
 import {WalletComponent} from "./wallet/wallet.component";
 import {CostComponent} from "./cost/cost.component";
 import {SummaryComponent} from "./summary/summary.component";
-
+//Tworzenie routing
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch:'full'},
   {path: 'login', component: LoginComponent},

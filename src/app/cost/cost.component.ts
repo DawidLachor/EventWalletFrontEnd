@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Cost} from "./Cost";
 import {CostService} from "./cost.service";
 import {ActivatedRoute} from "@angular/router";
@@ -32,8 +32,10 @@ export class CostComponent implements OnInit {
   idCost = 0;
 
   fileInfos?: Observable<any>;
+  isCost = false;
+
   constructor(private costService: CostService, private route: ActivatedRoute,
-              private personService: PersonService,private uploadService: UploadFileService, private summaryService: SummaryService) {
+              private personService: PersonService, private uploadService: UploadFileService, private summaryService: SummaryService) {
     this.costs = [];
     this.id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
   }
@@ -42,14 +44,29 @@ export class CostComponent implements OnInit {
     this.findAll()
   }
 
+  //Sprawdzenie czy jest cos do oddania
+  isCostZero() {
+    this.summaryService.getSummary(this.id).subscribe(
+      value => {
+        value.forEach(item => {
+            if (item.cost > 0) {
+              this.isCost = true;
+            }
+          }
+        )
+      }
+    )
+  }
 
-  public findAll(){
+  //Znalezienie wszystkich kosztów
+  public findAll() {
     this.costService.findAll(this.id).subscribe(
-       value => this.costs = value,
+      value => this.costs = value,
       error => alert(error)
     )
   }
 
+  //Otworzenie modelu do update kosztów
   onOpenModal(cost: Cost) {
     this.cost = cost
     this.findAllPeople()
@@ -57,25 +74,29 @@ export class CostComponent implements OnInit {
     this.fileInfos = this.uploadService.getFilesByCost(cost.id)
   }
 
-  findAllPeople(){
+  //Znalezienie wszystkich osób z danego portfela
+  findAllPeople() {
     this.personService.findAll(this.id).subscribe(
       value => this.people = value,
       error => alert(error)
     )
   }
 
-  findPersonByCost(costId: number){
-    this.personService.findByIdCost(costId,this.id).subscribe(
+  //Znalezienie osoby po id kosztu
+  findPersonByCost(costId: number) {
+    this.personService.findByIdCost(costId, this.id).subscribe(
       value => this.person = value
     )
   }
 
+  //update kosztów
   onUpdateCost(cost: Cost) {
     let idPerson = this.personSet?.id
-    if (this.personSet?.id == undefined){
+    if (this.personSet?.id == undefined) {
       idPerson = this.person?.id
     }
     this.costService.update(cost, idPerson, this.id).subscribe(
+      //Odświeżenie listy
       value => this.findAll(),
       error => alert(error)
     )
@@ -84,16 +105,20 @@ export class CostComponent implements OnInit {
     this.message = "";
   }
 
+  //Ustawienie osoby do kosztów
   setUser(person: Person) {
     this.personSet = person;
   }
 
+  //Zapisz nowych kosztów
   onCreateCost(cost: Cost) {
     let idPerson = this.personSet?.id
     this.costService.create(cost, idPerson, this.id).subscribe(
       value => {
+        //Odświeżenie listy
         this.findAll();
         this.idCost = value.id;
+        //Połaczenie obrazu z kosztem
         this.connectFileWithCost();
       },
       error => alert(error)
@@ -102,32 +127,35 @@ export class CostComponent implements OnInit {
     this.personSet = undefined;
     this.message = "";
   }
-
-  connectFileWithCost(){
-    if(this.idFile != '')
+  //Połaczenie zdjęć z kosztami
+  connectFileWithCost() {
+    if (this.idFile != '')
       this.uploadService.connectFileWithCost(this.idFile, this.idCost).subscribe()
+    //Resetowanie zmiennej
     this.idFile = '';
   }
-
+  //Stworzenie nowej osoby
   onCreatePerson(person: Person) {
     this.personService.create(person, this.id).subscribe(
       value => console.log(value),
       error => alert(error)
     )
   }
-
+  //usuwanie kosztów
   onDeleteCost(cost: Cost) {
     this.costService.delete(cost.id, this.id).subscribe(
       value => this.findAll()
     )
   }
-
+  //Wybór zdjęcia
   selectFile(event: any): void {
     this.progressInfos = [];
 
+    //Dodanie do zmiennej pliku
     const files = event.target.files;
     let isImage = true;
 
+    //Sprawdzanie czy plik jest zdjęciem
     for (let i = 0; i < files.length; i++) {
       if (files.item(i).type.match('image.*')) {
         continue;
@@ -146,6 +174,7 @@ export class CostComponent implements OnInit {
     }
   }
 
+  //Metoda wywoływana podczas dodawanie zdjęcia do istniejącego kosztu
   uploadFile(cost: Cost): void {
     this.progress = 0;
 
@@ -182,7 +211,7 @@ export class CostComponent implements OnInit {
       this.selectedFiles = undefined;
     }
   }
-
+  //Metoda wywoływana podczas dodawanie zdjęcia do nowo tworzonego kosztu
   createFile() {
     this.progress = 0;
 

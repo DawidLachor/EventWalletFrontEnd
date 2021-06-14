@@ -24,6 +24,7 @@ export class WalletComponent implements OnInit {
     this.findAll()
   }
 
+  //Znajdowanie wszystkich portfeli
   public findAll(){
     this.walletService.findAll().subscribe(
       value => {
@@ -36,6 +37,7 @@ export class WalletComponent implements OnInit {
     )
   }
 
+  //Modyfikacja portfeli
   onUpdateWallet(walletEdit: Wallet) {
     this.walletService.update(walletEdit).subscribe(
       value => this.findAll(),
@@ -43,6 +45,7 @@ export class WalletComponent implements OnInit {
     )
   }
 
+  //Tworzenie nowych portfeli
   onCreateWallet(walletEdit: Wallet) {
     this.walletService.create(walletEdit).subscribe(
       value => this.findAll(),
@@ -50,10 +53,12 @@ export class WalletComponent implements OnInit {
     )
   }
 
+  //Otworzenie modelu
   onOpenModal(wallet: Wallet) {
     this.walletEdit = wallet;
   }
 
+  //Usunięcie modelu
   onDeleteWallet(walletEdit: Wallet) {
     this.walletService.delete(walletEdit).subscribe(
       value => this.findAll()

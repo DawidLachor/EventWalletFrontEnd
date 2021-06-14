@@ -15,7 +15,8 @@
             <p>{{summary.cost}}</p>
           </div>
           <div class="col-2">
-            <button (click)="repayment(summary)">Zwrot kosztów</button>
+<!--            Sprawdzenie czy wyświetlić przycisk zwrot kosztów-->
+            <button *ngIf="summary.cost < 0" (click)="repayment(summary)">Zwrot kosztów</button>
           </div>
         </div>
       </div>

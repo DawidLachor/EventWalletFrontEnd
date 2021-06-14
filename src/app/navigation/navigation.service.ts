@@ -9,12 +9,10 @@ export class NavigationService {
   jwt: boolean = false;
   constructor() { }
 
+  //Sprawdzenie tokena JWT
   checkJWT(): void{
+    //SSprawdzamy czy istnieje w cooki taki token
     let token = localStorage.getItem('authenticationToken');
-    if (token){
-      this.jwt = true;
-    } else {
-      this.jwt = false;
-    }
+    this.jwt = !!token;
   }
 }

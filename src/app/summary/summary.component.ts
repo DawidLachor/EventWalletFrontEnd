@@ -33,6 +33,7 @@ export class SummaryComponent implements OnInit {
     this.findPeople()
   }
 
+  //Znajdowanie wszystkich summaryCost z danego portfela
   findPeople(){
     this.summaryService.getSummary(this.id).subscribe(
       value => this.summaries = value,
@@ -40,9 +41,10 @@ export class SummaryComponent implements OnInit {
     )
   }
 
+  //Zwrot kosztów
   repayment(summary: Summary){
     this.cost.cost = Math.abs(summary.cost);
-    this.costService.create(this.cost, summary.id, this.id).subscribe(
+    this.summaryService.repayment(this.id, summary.id, this.cost).subscribe(
       value => this.findPeople())
   }
 

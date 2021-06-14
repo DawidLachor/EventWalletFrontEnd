@@ -22,6 +22,7 @@
         <input type="text" ngModel name="lastName" class="form-control" id="lastName" placeholder="lastName" required>
         <label for="lastName">Nazwisko</label>
       </div>
+<!--      Wyświetlany tekst gdy nie można zarejestrować konta-->
       <div *ngIf="signup">
         <p class="text-danger">Email jest niepoprawny lub nazwę użytkownika jest używana</p>
       </div>
